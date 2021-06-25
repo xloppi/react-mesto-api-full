@@ -128,7 +128,7 @@ const login = (req, res, next) => {
   return User.findOne({ email }).select('+password')
     .then((user) => {
       if (!user) {
-        throw next(new AuthError('Не правильная почта или пароль'));
+        throw next(new AuthError('Не правильная почта или пароль1'));
       }
 
       return bcrypt.compare(
@@ -136,7 +136,7 @@ const login = (req, res, next) => {
         user.password,
         (error, isValid) => {
           if (!isValid) {
-            throw next(new AuthError('Не правильная почта или пароль'));
+            throw next(new AuthError('Не правильная почта или пароль2'));
           }
 
           const token = jwt.sign(
