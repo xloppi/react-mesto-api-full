@@ -1,0 +1,11 @@
+.elements__card-description {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 79px;
+  padding: 0px 15px 0px 21px;
+  box-sizing: border-box;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

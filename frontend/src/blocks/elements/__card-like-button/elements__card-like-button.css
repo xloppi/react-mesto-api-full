@@ -1,0 +1,25 @@
+.elements__card-like-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: initial;
+  border: 0;
+  min-width: 20px;
+  height: 18px;
+  padding: 0;
+  background-image: url(../../../images/elements/like.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: opacity 0.3s;
+  cursor: pointer;
+}
+
+.elements__card-like-button:focus {
+  outline: 0;
+}
+
+.elements__card-like-button:hover {
+  opacity: 0.5;
+}
+
+

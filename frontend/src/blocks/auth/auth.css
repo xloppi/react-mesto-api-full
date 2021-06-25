@@ -1,0 +1,8 @@
+.auth {
+  font-family: Inter;
+  font-style: normal;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  width: 358px;
+}

@@ -1,0 +1,13 @@
+.header__link {
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  transition: opacity 0.3s;
+}
+
+.header__link:hover {
+  opacity: 0.6;
+}
+

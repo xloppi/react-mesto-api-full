@@ -1,0 +1,8 @@
+.elements__card {
+  display: grid;
+  background-color: #ffffff;
+  border-radius: 11px;
+  overflow: hidden;
+  box-sizing: border-box;
+  position: relative;
+}

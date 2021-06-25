@@ -1,0 +1,8 @@
+.auth__navigation {
+  display: flex;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  align-self: center;
+  margin-top: 15px;
+}

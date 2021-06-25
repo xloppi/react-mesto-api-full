@@ -1,0 +1,6 @@
+.elements__card-like-section {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  box-sizing: content-box;
+}

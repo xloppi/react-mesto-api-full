@@ -1,0 +1,20 @@
+.elements__card-delete-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  display: none;
+  appearance: none;
+  position: absolute;
+  top: 18px;
+  right: 15px;
+  background-color: initial;
+  border: 0;
+  min-width: 18px;
+  height: 20px;
+  background-image: url('../../../images/elements/trash.svg');
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.elements__card-delete-button:focus {
+  outline: 0;
+}

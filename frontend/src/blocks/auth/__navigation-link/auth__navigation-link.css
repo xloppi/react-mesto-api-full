@@ -1,0 +1,11 @@
+.auth__navigation-link {
+  text-decoration: none;
+  color: #ffffff;
+  margin-left: 5px;
+  transition: opacity 0.3s;
+}
+
+.auth__navigation-link:hover {
+  opacity: 0.6;
+}
+
