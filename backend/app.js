@@ -15,7 +15,7 @@ const {
 } = require('./controllers/users');
 
 const CORS_WHITELIST = [
-  'http://localhost:8080',
+  'http://localhost:3000',
   'https://hlopkov.students.nomoredomains.club',
   'http://hlopkov.students.nomoredomains.club',
 ];
