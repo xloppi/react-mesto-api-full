@@ -72,7 +72,7 @@ app.post('/signup', celebrate({
     name: Joi.string().min(2).max(30),
     about: Joi.string().min(2).max(30),
     // я добавил pattern(/https?/) потому что иначе isURL пропускает без 'https' или 'http'
-    avatar: Joi.string().required().pattern(/https?/).custom((value, helpers) => {
+    avatar: Joi.string().pattern(/https?/).custom((value, helpers) => {
       if (isURL(value)) {
         return value;
       }
