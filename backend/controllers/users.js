@@ -6,7 +6,7 @@ const AuthError = require('../errors/auth-err');
 const ValidationError = require('../errors/validation-err');
 const ConflictingError = require('../errors/conflicting-request-err');
 
-const JWT_KEY = 'superpupernikogdanepodbereshkey';
+const { NODE_ENV, JWT_SECRET, SALT_ROUNDS } = process.env;
 
 const getUsers = (req, res, next) => {
   User.find({})
@@ -39,7 +39,7 @@ const createUser = (req, res, next) => {
     return next(new ValidationError('Не заполненно поле email или пароль'));
   }
 
-  return bcrypt.hash(password, 10, (error, hash) => {
+  return bcrypt.hash(password, NODE_ENV === 'production' ? SALT_ROUNDS : 8, (error, hash) => {
     User.findOne({ email })
       .then((userEmail) => {
         if (userEmail) {
@@ -139,7 +139,11 @@ const login = (req, res, next) => {
             throw next(new AuthError('Не правильная почта или пароль'));
           }
 
-          const token = jwt.sign({ _id: user._id }, JWT_KEY, { expiresIn: '7d' });
+          const token = jwt.sign(
+            { _id: user._id },
+            NODE_ENV === 'production' ? JWT_SECRET : 'superpupernikogdanepodbereshkey',
+            { expiresIn: '7d' },
+          );
           return res
             .cookie('jwt', token, {
               maxAge: 3600000 * 24 * 7,

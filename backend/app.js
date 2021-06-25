@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+require('dotenv').config();
 const { errors, celebrate, Joi } = require('celebrate');
 const { isURL, isEmail } = require('validator');
 const bodyParser = require('body-parser');
@@ -13,11 +14,11 @@ const {
 
 const auth = require('./middlewares/auth');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, MONGO_URL, NODE_ENV } = process.env;
 
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/mestodb', {
+mongoose.connect(NODE_ENV === 'production' ? MONGO_URL : 'mongodb://localhost:27017/mestodb', {
   useUnifiedTopology: true,
   useNewUrlParser: true,
   useCreateIndex: true,
