@@ -5,12 +5,25 @@ const { errors, celebrate, Joi } = require('celebrate');
 const { isURL, isEmail } = require('validator');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const routes = require('./routes/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const {
   createUser,
   login,
 } = require('./controllers/users');
+
+const options = {
+  origin: [
+    'http://localhost:8080',
+    'https://hlopkov.students.nomoredomains.club',
+  ],
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+  allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
+  credentials: true,
+};
 
 const auth = require('./middlewares/auth');
 
@@ -24,6 +37,8 @@ mongoose.connect(NODE_ENV === 'production' ? MONGO_URL : 'mongodb://localhost:27
   useCreateIndex: true,
   useFindAndModify: false,
 });
+
+app.use('*', cors(options));
 
 app.use(bodyParser.json());
 app.use(cookieParser());

@@ -12,8 +12,8 @@ export const register = ({password, email}) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
+      "email": email,
       "password": password,
-      "email": email
     })
   })
    .then((res) => parseResponse(res));
@@ -25,9 +25,10 @@ export const authorize = ({password, email}) => {
     headers: {
       "Content-Type": "application/json",
     },
+    credentials: 'include',
     body: JSON.stringify ({
+      "email": email,
       "password": password,
-      "email": email
     })
   })
     .then((res) => parseResponse(res));
