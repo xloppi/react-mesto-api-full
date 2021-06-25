@@ -5,6 +5,7 @@ const { isURL, isEmail } = require('validator');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const routes = require('./routes/index');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const {
   createUser,
   login,
@@ -25,6 +26,8 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 
 app.use(bodyParser.json());
 app.use(cookieParser());
+
+app.use(requestLogger);
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
@@ -61,6 +64,8 @@ app.post('/signup', celebrate({
 app.use(auth);
 
 app.use(routes);
+
+app.use(errorLogger);
 
 app.use(errors());
 
