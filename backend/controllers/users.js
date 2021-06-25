@@ -39,7 +39,7 @@ const createUser = (req, res, next) => {
     return next(new ValidationError('Не заполненно поле email или пароль'));
   }
 
-  return bcrypt.hash(password, NODE_ENV === 'production' ? SALT_ROUNDS : 8, (error, hash) => {
+  return bcrypt.hash(password, NODE_ENV === 'production' ? SALT_ROUNDS : 10, (error, hash) => {
     User.findOne({ email })
       .then((userEmail) => {
         if (userEmail) {
