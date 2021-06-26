@@ -19,6 +19,8 @@ const CORS_WHITELIST = [
   'https://localhost:3005',
   'https://hlopkov.students.nomoredomains.club',
   'http://hlopkov.students.nomoredomains.club',
+  'https://api.hlopkov.students.nomoredomains.club',
+  'http://api.hlopkov.students.nomoredomains.club',
 ];
 const corsOption = {
   credentials: true,
