@@ -1,7 +1,10 @@
 export const BASE_URL = 'https://api.hlopkov.students.nomoredomains.club';
 
 const parseResponse = (res) => {
-  return res.ok ? res.json() : Promise.reject(new Error(`Ошибка ${res.status}: ${res.statusText}`))
+  if(res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Ошибка: ${res.status}`);
 };
 
 
@@ -17,7 +20,7 @@ export const register = ({password, email}) => {
       "password": password,
     })
   })
-   .then((res) => parseResponse(res));
+    .then(parseResponse)
  }
 
 export const authorize = ({password, email}) => {
@@ -26,13 +29,13 @@ export const authorize = ({password, email}) => {
     headers: {
       "Content-Type": "application/json",
     },
-    credentials: 'include',
+    // credentials: 'include',
     body: JSON.stringify ({
       "email": email,
       "password": password,
     })
   })
-    .then((res) => parseResponse(res));
+  .then(parseResponse)
 }
 
 export const getContent = () => {
@@ -43,5 +46,5 @@ export const getContent = () => {
     },
     credentials: 'include',
   })
-    .then((res) => parseResponse(res));
+  .then(parseResponse)
 }

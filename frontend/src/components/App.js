@@ -13,6 +13,7 @@ import * as auth from '../utils/auth';
 import ProtectedRoute from './ProtectedRoute';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { useEffect, useState } from 'react';
+import cookies from 'cookies';
 import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 
 function App() {
@@ -67,7 +68,8 @@ function App() {
   const tokenCheck = () => {
     auth.getContent()
       .then((res) => {
-        setUserEmail(res.data.email);
+        console.log(res);
+        setUserEmail(res.email);
         setLoggedIn(true);
       })
   }
@@ -166,20 +168,21 @@ function App() {
 
   const handleLogin = (data) => {
     return auth.authorize(data)
-      .then(({token}) =>{
-        localStorage.setItem('token', token);
+      .then(() =>{
         setLoggedIn(true);
         setUserEmail(data.email);
+        console.log('все ок')
       })
       .catch(() => {
         setSuccessfulRequest(false);
         setTooltipOpen(true);
+        console.log('Что-то пошло не так! Попробуйте еще раз.')
         setMessageTooltip('Что-то пошло не так! Попробуйте еще раз.')
       })
   }
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    cookies.set('jwt', {maxAge: 0});
     setLoggedIn(false);
     history.push('/login');
   }

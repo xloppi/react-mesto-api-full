@@ -5,6 +5,7 @@ class Api {
     this.url = options.url;
     this.headers = options.headers;
     this._parseResponse = (res) => {
+      console.log(res)
       if(res.ok) {
         return res.json();
       }
@@ -14,6 +15,7 @@ class Api {
 
   getInitialCards() {
     return fetch(`${this.url}/cards`, {
+      method: 'GET',
       headers: this.headers,
       credentials: 'include',
     })
@@ -22,6 +24,7 @@ class Api {
 
   getUserInfo() {
     return fetch(`${this.url}/users/me`, {
+      method: 'GET',
       headers: this.headers,
       credentials: 'include',
     })
