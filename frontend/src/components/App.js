@@ -13,7 +13,6 @@ import * as auth from '../utils/auth';
 import ProtectedRoute from './ProtectedRoute';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { useEffect, useState } from 'react';
-import cookies from 'cookies';
 import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 
 function App() {
@@ -182,7 +181,7 @@ function App() {
   }
 
   const handleLogout = () => {
-    cookies.set('jwt', {maxAge: 0});
+    document.cookie = "jwt=;"
     setLoggedIn(false);
     history.push('/login');
   }
