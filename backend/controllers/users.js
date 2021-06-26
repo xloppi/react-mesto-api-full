@@ -35,10 +35,6 @@ const createUser = (req, res, next) => {
     password,
   } = req.body;
 
-  if (!email || !password) {
-    return next(new ValidationError('Не заполненно поле email или пароль'));
-  }
-
   return bcrypt.hash(password, NODE_ENV === 'production' ? Number(SALT_ROUNDS) : 10, (error, hash) => {
     User.findOne({ email })
       .then((userEmail) => {
@@ -68,67 +64,52 @@ const createUser = (req, res, next) => {
   });
 };
 
-const updateProfile = (req, res, next) => {
-  if (!req.body.name || !req.body.about) {
-    return next(new ValidationError('Не заполненно поле имя или о себе'));
-  }
-  return User.findByIdAndUpdate(
-    req.user._id,
-    { name: req.body.name, about: req.body.about },
-    { new: true, runValidators: true },
-  )
-    .then((user) => {
-      if (!user) {
-        throw new NotFoundError('Пользователь с указанным _id не найден');
-      }
-      res.status(200).send(user);
-    })
-    .catch((err) => {
-      if (err.name === 'ValidationError' || err.name === 'CastError') {
-        return next(new ValidationError('Переданы некорректные данные при обновлении профиля'));
-      }
-      return next(err);
-    });
-};
+const updateProfile = (req, res, next) => User.findByIdAndUpdate(
+  req.user._id,
+  { name: req.body.name, about: req.body.about },
+  { new: true, runValidators: true },
+)
+  .then((user) => {
+    if (!user) {
+      throw new NotFoundError('Пользователь с указанным _id не найден');
+    }
+    res.status(200).send(user);
+  })
+  .catch((err) => {
+    if (err.name === 'ValidationError' || err.name === 'CastError') {
+      return next(new ValidationError('Переданы некорректные данные при обновлении профиля'));
+    }
+    return next(err);
+  });
 
-const updateAvatar = (req, res, next) => {
-  if (!req.body.avatar) {
-    return next(new ValidationError('Не заполненно поле аватар'));
-  }
-
-  return User.findByIdAndUpdate(
-    req.user._id,
-    { avatar: req.body.avatar },
-    { new: true, runValidators: true },
-  )
-    .then((user) => {
-      if (!user) {
-        throw new NotFoundError('Пользователь с указанным _id не найден');
-      }
-      res.status(200).send(user);
-    })
-    .catch((err) => {
-      if (err.name === 'ValidationError') {
-        return next(new ValidationError('Переданы некорректные данные при обновлении аватара'));
-      }
-      if (err.name === 'CastError') {
-        return next(new NotFoundError('Пользователь с указанным _id не найден'));
-      }
-      return next(err);
-    });
-};
+const updateAvatar = (req, res, next) => User.findByIdAndUpdate(
+  req.user._id,
+  { avatar: req.body.avatar },
+  { new: true, runValidators: true },
+)
+  .then((user) => {
+    if (!user) {
+      throw new NotFoundError('Пользователь с указанным _id не найден');
+    }
+    res.status(200).send(user);
+  })
+  .catch((err) => {
+    if (err.name === 'ValidationError') {
+      return next(new ValidationError('Переданы некорректные данные при обновлении аватара'));
+    }
+    if (err.name === 'CastError') {
+      return next(new NotFoundError('Пользователь с указанным _id не найден'));
+    }
+    return next(err);
+  });
 
 const login = (req, res, next) => {
   const { email, password } = req.body;
 
-  if (!email || !password) {
-    return next(new ValidationError('Не заполненно поле email или пароль'));
-  }
-
   return User.findOne({ email }).select('+password')
     .then((user) => {
       if (!user) {
-        throw next(new AuthError('Не правильная почта или пароль1'));
+        throw next(new AuthError('Не правильная почта или пароль'));
       }
 
       return bcrypt.compare(
@@ -136,7 +117,7 @@ const login = (req, res, next) => {
         user.password,
         (error, isValid) => {
           if (!isValid) {
-            throw next(new AuthError('Не правильная почта или пароль2'));
+            throw next(new AuthError('Не правильная почта или пароль'));
           }
 
           const token = jwt.sign(
@@ -151,7 +132,7 @@ const login = (req, res, next) => {
               SameSite: 'None',
               secure: true,
             })
-            .end();
+            .send({ message: 'Авторизация прошла успешно' });
         },
       );
     })

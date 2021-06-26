@@ -31,7 +31,11 @@ const userSchema = new mongoose.Schema({
     unique: true,
     validate: [isEmail, 'invalid email'],
   },
-  password: { type: String, select: false },
+  password: {
+    type: String,
+    select: false,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model('user', userSchema);

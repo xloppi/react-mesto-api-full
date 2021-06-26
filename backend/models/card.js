@@ -10,6 +10,13 @@ const userSchema = new mongoose.Schema({
   link: {
     type: String,
     required: true,
+    validate: {
+      validator: (v) => {
+        const regex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/m;
+        return regex.test(v);
+      },
+      message: (props) => `${props.value} невалидная ссылка!`,
+    },
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,

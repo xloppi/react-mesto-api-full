@@ -54,12 +54,16 @@ app.use(requestLogger);
 
 app.use(cors(corsOption));
 
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
 app.post('/signin', celebrate({
   body: Joi.object().keys({
     email: Joi
       .string()
-      .min(2)
-      .max(30)
       .required()
       .custom((value, helpers) => {
         if (isEmail(value)) {
@@ -75,12 +79,12 @@ app.post('/signup', celebrate({
     name: Joi.string().min(2).max(30),
     about: Joi.string().min(2).max(30),
     avatar: Joi.string().pattern(/https?/).custom((value, helpers) => {
-      if (isURL(value)) {
+      if (isURL(value, { require_protocol: true })) {
         return value;
       }
       return helpers.error('any.invalid');
     }),
-    email: Joi.string().required(),
+    email: Joi.string().required().email(),
     password: Joi.string().required(),
   }),
 }), createUser);

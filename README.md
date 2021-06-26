@@ -11,5 +11,6 @@
 
 1. fronend - https://hlopkov.students.nomoredomains.club 
 2. backend - https://api.hlopkov.students.nomoredomains.club 
+3. Публичный ip - 84.252.136.157
 
 
