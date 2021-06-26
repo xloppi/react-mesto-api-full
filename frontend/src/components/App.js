@@ -167,12 +167,10 @@ function App() {
   const handleLogin = (data) => {
     return auth.authorize(data)
       .then((res) =>{
-        console.log(res);
         setLoggedIn(true);
         setUserEmail(data.email);
       })
       .catch((err) => {
-        console.log(err);
         setSuccessfulRequest(false);
         setTooltipOpen(true);
         setMessageTooltip('Что-то пошло не так! Попробуйте еще раз.')
