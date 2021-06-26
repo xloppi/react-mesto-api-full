@@ -29,13 +29,18 @@ export const authorize = ({password, email}) => {
     headers: {
       "Content-Type": "application/json",
     },
-    // credentials: 'include',
+    credentials: 'include',
     body: JSON.stringify ({
       "email": email,
       "password": password,
     })
   })
-  .then(parseResponse)
+  .then((res) => {
+    if(res.ok) {
+      return res;
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
 }
 
 export const getContent = () => {

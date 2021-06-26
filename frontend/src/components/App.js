@@ -166,15 +166,15 @@ function App() {
 
   const handleLogin = (data) => {
     return auth.authorize(data)
-      .then(() =>{
+      .then((res) =>{
+        console.log(res);
         setLoggedIn(true);
         setUserEmail(data.email);
-        console.log('все ок')
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err);
         setSuccessfulRequest(false);
         setTooltipOpen(true);
-        console.log('Что-то пошло не так! Попробуйте еще раз.')
         setMessageTooltip('Что-то пошло не так! Попробуйте еще раз.')
       })
   }
