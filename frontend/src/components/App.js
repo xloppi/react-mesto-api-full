@@ -41,24 +41,28 @@ function App() {
   }, [history, loggedIn])
 
   useEffect(() => {
-    api.getUserInfo()
-    .then(res => {
-      setCurrentUser(res);
-    })
-    .catch((err) => {
-      console.log('Ошибка: ', err);
-    });
-  }, [])
+    if (loggedIn) {
+      api.getUserInfo()
+      .then(res => {
+        setCurrentUser(res);
+      })
+      .catch((err) => {
+        console.log('Ошибка: ', err);
+      });
+    }
+  }, [loggedIn])
 
   useEffect(() => {
-    api.getInitialCards()
-    .then(data => {
-      setCards(data);
-    })
-    .catch((err) => {
-      console.log('Ошибка: ', err);
-    });
-  }, [])
+    if (loggedIn) {
+      api.getInitialCards()
+      .then(data => {
+        setCards(data);
+      })
+      .catch((err) => {
+        console.log('Ошибка: ', err);
+      });
+    }
+  }, [loggedIn])
 
   const tokenCheck = () => {
      const token = localStorage.getItem('token');
