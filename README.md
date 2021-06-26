@@ -9,7 +9,7 @@
 
 ## Ссылки на проект
 
-https://hlopkov.students.nomoredomains.club - fronend
-https://api.hlopkov.students.nomoredomains.club - backend
+1. fronend - https://hlopkov.students.nomoredomains.club 
+2. backend - https://api.hlopkov.students.nomoredomains.club 
 
 
