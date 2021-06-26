@@ -5,7 +5,6 @@ class Api {
     this.url = options.url;
     this.headers = options.headers;
     this._parseResponse = (res) => {
-      console.log(res)
       if(res.ok) {
         return res.json();
       }

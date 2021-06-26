@@ -67,7 +67,6 @@ function App() {
   const tokenCheck = () => {
     auth.getContent()
       .then((res) => {
-        console.log(res);
         setUserEmail(res.email);
         setLoggedIn(true);
       })
