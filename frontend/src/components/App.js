@@ -182,8 +182,6 @@ function App() {
   }
 
   const handleLogout = () => {
-    const cookies = new Cookies();
-    cookies.remove('jwt');
     setLoggedIn(false);
     history.push('/login');
   }
