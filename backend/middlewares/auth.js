@@ -6,7 +6,7 @@ module.exports = (req, res, next) => {
   const cookie = req.cookies.jwt;
 
   if (!cookie) {
-    return res.status(401).send({ message: 'Необходима авторизация' });
+    return res.status(401).send({ message: 'Необходима авторизация1' });
   }
 
   let payload;
@@ -14,7 +14,7 @@ module.exports = (req, res, next) => {
   try {
     payload = jwt.verify(cookie, NODE_ENV === 'production' ? JWT_SECRET : 'superpupernikogdanepodbereshkey');
   } catch (err) {
-    return res.status(401).send({ message: 'Необходима авторизация' });
+    return res.status(401).send({ message: 'Необходима авторизация2' });
   }
 
   req.user = payload;
