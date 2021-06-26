@@ -15,7 +15,8 @@ const {
 } = require('./controllers/users');
 
 const CORS_WHITELIST = [
-  'http://localhost:3000',
+  'http://localhost:3005',
+  'https://localhost:3005',
   'https://hlopkov.students.nomoredomains.club',
   'http://hlopkov.students.nomoredomains.club',
 ];
@@ -71,7 +72,6 @@ app.post('/signup', celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
     about: Joi.string().min(2).max(30),
-    // я добавил pattern(/https?/) потому что иначе isURL пропускает без 'https' или 'http'
     avatar: Joi.string().pattern(/https?/).custom((value, helpers) => {
       if (isURL(value)) {
         return value;
