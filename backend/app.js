@@ -1,6 +1,6 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-require('dotenv').config();
 const { errors, celebrate, Joi } = require('celebrate');
 const { isURL, isEmail } = require('validator');
 const bodyParser = require('body-parser');
